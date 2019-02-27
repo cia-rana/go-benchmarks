@@ -1,57 +1,56 @@
 File: profile
 Type: cpu
-Time: Feb 28, 2019 at 4:53am (JST)
-Duration: 1.73mins, Total samples = 93.62s (90.02%)
-Showing nodes accounting for 91.86s, 98.12% of 93.62s total
-Dropped 123 nodes (cum <= 0.47s)
+Time: Feb 28, 2019 at 6:02am (JST)
+Duration: 1.46mins, Total samples = 80.52s (91.85%)
+Showing nodes accounting for 78.66s, 97.69% of 80.52s total
+Dropped 108 nodes (cum <= 0.40s)
       flat  flat%   sum%        cum   cum%
-    26.74s 28.56% 28.56%     39.97s 42.69%  image/png.filter
-    15.03s 16.05% 44.62%     35.97s 38.42%  compress/flate.(*compressor).deflate
-    11.02s 11.77% 56.39%     11.02s 11.77%  compress/flate.matchLen
-     6.34s  6.77% 63.16%      6.34s  6.77%  image/png.abs (inline)
-     5.35s  5.71% 68.87%     16.37s 17.49%  compress/flate.(*compressor).findMatch
-     4.70s  5.02% 73.89%      9.11s  9.73%  image/png.paeth
-     4.12s  4.40% 78.30%      4.12s  4.40%  image/png.abs8 (inline)
-     3.74s  3.99% 82.29%      3.74s  3.99%  hash/adler32.update
-     2.88s  3.08% 85.37%      4.81s  5.14%  image/png.filterPaeth
-     2.25s  2.40% 87.77%      2.25s  2.40%  compress/flate.hash4 (inline)
-     1.76s  1.88% 89.65%      1.76s  1.88%  main.ProcessSlice
-     1.71s  1.83% 91.48%     12.88s 13.76%  image/png.(*decoder).readImagePass
-     1.64s  1.75% 93.23%      1.64s  1.75%  runtime.memmove
-     1.12s  1.20% 94.42%      1.67s  1.78%  compress/flate.(*decompressor).huffSym
-     0.61s  0.65% 95.08%      0.72s  0.77%  compress/flate.(*huffmanBitWriter).writeCode
-     0.50s  0.53% 95.61%      3.15s  3.36%  compress/flate.(*decompressor).huffmanBlock
-     0.47s   0.5% 96.11%      0.47s   0.5%  runtime.memclrNoHeapPointers
-     0.46s  0.49% 96.60%      0.64s  0.68%  bufio.(*Reader).ReadByte
-     0.40s  0.43% 97.03%      1.53s  1.63%  compress/flate.(*huffmanBitWriter).writeTokens
-     0.39s  0.42% 97.45%      0.77s  0.82%  compress/flate.(*dictDecoder).tryWriteCopy (inline)
-     0.22s  0.23% 97.68%     78.75s 84.12%  image/png.(*encoder).writeImage
-     0.17s  0.18% 97.86%      0.74s  0.79%  compress/flate.(*huffmanBitWriter).indexTokens
-     0.07s 0.075% 97.94%      0.57s  0.61%  compress/flate.(*compressor).fillDeflate
-     0.04s 0.043% 97.98%     36.54s 39.03%  compress/flate.(*compressor).write
-     0.04s 0.043% 98.02%      3.78s  4.04%  hash/adler32.(*digest).Write
-     0.02s 0.021% 98.05%      0.52s  0.56%  compress/flate.(*huffmanEncoder).generate
-     0.02s 0.021% 98.07%     38.22s 40.82%  compress/zlib.(*Writer).Write
-     0.02s 0.021% 98.09%      5.61s  5.99%  io.ReadAtLeast
-     0.01s 0.011% 98.10%     36.55s 39.04%  compress/flate.(*Writer).Write
-     0.01s 0.011% 98.11%      5.59s  5.97%  compress/zlib.(*reader).Read
-     0.01s 0.011% 98.12%      0.53s  0.57%  runtime.mallocgc
-         0     0% 98.12%      2.32s  2.48%  compress/flate.(*compressor).writeBlock
-         0     0% 98.12%      3.44s  3.67%  compress/flate.(*decompressor).Read
-         0     0% 98.12%      2.32s  2.48%  compress/flate.(*huffmanBitWriter).writeBlock
-         0     0% 98.12%      0.49s  0.52%  image.NewNRGBA (inline)
-         0     0% 98.12%     78.77s 84.14%  image/png.(*Encoder).Encode
-         0     0% 98.12%     12.88s 13.76%  image/png.(*decoder).decode
-         0     0% 98.12%     12.89s 13.77%  image/png.(*decoder).parseChunk
-         0     0% 98.12%     12.88s 13.76%  image/png.(*decoder).parseIDAT
-         0     0% 98.12%     78.75s 84.12%  image/png.(*encoder).writeIDATs
-         0     0% 98.12%     12.89s 13.77%  image/png.Decode
-         0     0% 98.12%      5.61s  5.99%  io.ReadFull
-         0     0% 98.12%     93.42s 99.79%  main.EncodeDefaultCompression
-         0     0% 98.12%     93.42s 99.79%  main.Processor.ProcessAll
-         0     0% 98.12%     93.42s 99.79%  main.main
-         0     0% 98.12%      0.48s  0.51%  runtime.largeAlloc
-         0     0% 98.12%     93.42s 99.79%  runtime.main
-         0     0% 98.12%      0.51s  0.54%  runtime.makeslice
-         0     0% 98.12%      0.48s  0.51%  runtime.mallocgc.func1
-         0     0% 98.12%      0.56s   0.6%  runtime.systemstack
+    22.84s 28.37% 28.37%     34.95s 43.41%  image/png.filter
+    12.09s 15.01% 43.38%     30.68s 38.10%  compress/flate.(*compressor).deflate
+     9.87s 12.26% 55.64%      9.87s 12.26%  compress/flate.matchLen
+     5.92s  7.35% 62.99%      5.92s  7.35%  image/png.abs (inline)
+     4.93s  6.12% 69.11%     14.80s 18.38%  compress/flate.(*compressor).findMatch
+     4.12s  5.12% 74.23%      8.31s 10.32%  image/png.paeth
+     3.80s  4.72% 78.95%      3.80s  4.72%  image/png.abs8 (inline)
+     3.49s  4.33% 83.28%      3.49s  4.33%  hash/adler32.update
+     2.38s  2.96% 86.24%      4.11s  5.10%  image/png.filterPaeth
+     1.84s  2.29% 88.52%      1.84s  2.29%  compress/flate.hash4 (inline)
+     1.52s  1.89% 90.41%      1.52s  1.89%  main.ProcessSlice
+     1.47s  1.83% 92.24%     10.78s 13.39%  image/png.(*decoder).readImagePass
+     1.30s  1.61% 93.85%      1.30s  1.61%  runtime.memmove
+     0.79s  0.98% 94.83%      1.09s  1.35%  compress/flate.(*decompressor).huffSym
+     0.45s  0.56% 95.39%      2.54s  3.15%  compress/flate.(*decompressor).huffmanBlock
+     0.43s  0.53% 95.93%      0.43s  0.53%  runtime.memclrNoHeapPointers
+     0.37s  0.46% 96.39%      0.48s   0.6%  compress/flate.(*huffmanBitWriter).writeCode
+     0.36s  0.45% 96.83%      1.15s  1.43%  compress/flate.(*huffmanBitWriter).writeTokens
+     0.34s  0.42% 97.26%      0.68s  0.84%  compress/flate.(*dictDecoder).tryWriteCopy (inline)
+     0.20s  0.25% 97.50%      0.74s  0.92%  compress/flate.(*huffmanBitWriter).indexTokens
+     0.09s  0.11% 97.62%     68.05s 84.51%  image/png.(*encoder).writeImage
+     0.02s 0.025% 97.64%     32.67s 40.57%  compress/zlib.(*Writer).Write
+     0.02s 0.025% 97.67%      3.51s  4.36%  hash/adler32.(*digest).Write
+     0.01s 0.012% 97.68%     31.03s 38.54%  compress/flate.(*compressor).write
+     0.01s 0.012% 97.69%      0.48s   0.6%  runtime.mallocgc
+         0     0% 97.69%     31.03s 38.54%  compress/flate.(*Writer).Write
+         0     0% 97.69%      1.95s  2.42%  compress/flate.(*compressor).writeBlock
+         0     0% 97.69%      2.70s  3.35%  compress/flate.(*decompressor).Read
+         0     0% 97.69%      1.95s  2.42%  compress/flate.(*huffmanBitWriter).writeBlock
+         0     0% 97.69%      0.47s  0.58%  compress/flate.(*huffmanEncoder).generate
+         0     0% 97.69%      4.60s  5.71%  compress/zlib.(*reader).Read
+         0     0% 97.69%      0.45s  0.56%  image.NewNRGBA (inline)
+         0     0% 97.69%     68.08s 84.55%  image/png.(*Encoder).Encode
+         0     0% 97.69%     10.78s 13.39%  image/png.(*decoder).decode
+         0     0% 97.69%     10.78s 13.39%  image/png.(*decoder).parseChunk
+         0     0% 97.69%     10.78s 13.39%  image/png.(*decoder).parseIDAT
+         0     0% 97.69%     68.05s 84.51%  image/png.(*encoder).writeIDATs
+         0     0% 97.69%     10.78s 13.39%  image/png.Decode
+         0     0% 97.69%      4.60s  5.71%  io.ReadAtLeast
+         0     0% 97.69%      4.60s  5.71%  io.ReadFull
+         0     0% 97.69%     80.38s 99.83%  main.EncodeDefaultCompression
+         0     0% 97.69%     80.38s 99.83%  main.Processor.ProcessAll
+         0     0% 97.69%     80.40s 99.85%  main.main
+         0     0% 97.69%      0.42s  0.52%  runtime.(*mheap).alloc
+         0     0% 97.69%      0.43s  0.53%  runtime.largeAlloc
+         0     0% 97.69%     80.40s 99.85%  runtime.main
+         0     0% 97.69%      0.44s  0.55%  runtime.makeslice
+         0     0% 97.69%      0.43s  0.53%  runtime.mallocgc.func1
+         0     0% 97.69%      0.46s  0.57%  runtime.systemstack
