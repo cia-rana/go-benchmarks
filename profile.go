@@ -58,7 +58,7 @@ func (processor Processor) ProcessAll() {
 }
 
 func ProcessSlice(img image.Image) {
-	pix := img.(*image.RGBA).Pix
+	pix := img.(*image.NRGBA).Pix
 	for i := 0; i < len(pix); i += 4 {
 		pix[i] = 255 - pix[i]
 		pix[i+1] = 255 - pix[i+1]
@@ -67,12 +67,12 @@ func ProcessSlice(img image.Image) {
 }
 
 func ProcessImage(img image.Image) {
-	imgRGBA := img.(*image.RGBA)
-	bounds := imgRGBA.Bounds()
+	imgNRGBA := img.(*image.NRGBA)
+	bounds := imgNRGBA.Bounds()
 	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
-			c := imgRGBA.At(x, y).(color.RGBA)
-			imgRGBA.Set(x, y, color.RGBA{
+			c := imgNRGBA.At(x, y).(color.NRGBA)
+			imgNRGBA.Set(x, y, color.RGBA{
 				uint8(255 - c.R),
 				uint8(255 - c.G),
 				uint8(255 - c.B),
@@ -129,6 +129,12 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
+	defer func() {
+		if err := os.RemoveAll(dstDir); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			return
+		}
+	}()
 
 	switch os.Args[1] {
 	case "Default":
@@ -146,8 +152,4 @@ func main() {
 		return
 	}
 
-	if err := os.RemoveAll(dstDir); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
 }

@@ -1,0 +1,72 @@
+File: profile
+Type: cpu
+Time: Feb 28, 2019 at 4:52am (JST)
+Duration: 35.29s, Total samples = 22.74s (64.44%)
+Showing nodes accounting for 22.15s, 97.41% of 22.74s total
+Dropped 88 nodes (cum <= 0.11s)
+      flat  flat%   sum%        cum   cum%
+     3.63s 15.96% 15.96%      3.63s 15.96%  hash/adler32.update
+     3.51s 15.44% 31.40%      5.53s 24.32%  image/png.filterPaeth
+     2.57s 11.30% 42.70%      2.66s 11.70%  syscall.Syscall
+     2.02s  8.88% 51.58%      2.02s  8.88%  image/png.abs (inline)
+     1.91s  8.40% 59.98%     14.28s 62.80%  image/png.(*decoder).readImagePass
+     1.75s  7.70% 67.68%      1.75s  7.70%  main.ProcessSlice
+     1.72s  7.56% 75.24%      1.72s  7.56%  runtime.memmove
+     1.25s  5.50% 80.74%      1.25s  5.50%  hash/crc32.ieeeCLMUL
+     1.06s  4.66% 85.40%      1.70s  7.48%  compress/flate.(*decompressor).huffSym
+     0.73s  3.21% 88.61%      3.72s 16.36%  compress/flate.(*decompressor).huffmanBlock
+     0.66s  2.90% 91.51%      0.66s  2.90%  runtime.memclrNoHeapPointers
+     0.51s  2.24% 93.76%      0.71s  3.12%  bufio.(*Reader).ReadByte
+     0.43s  1.89% 95.65%      0.93s  4.09%  compress/flate.(*dictDecoder).tryWriteCopy (inline)
+     0.09s   0.4% 96.04%      6.51s 28.63%  image/png.(*encoder).writeImage
+     0.06s  0.26% 96.31%      0.13s  0.57%  compress/flate.(*decompressor).moreBits
+     0.03s  0.13% 96.44%      4.04s 17.77%  bufio.(*Writer).Write
+     0.03s  0.13% 96.57%      6.02s 26.47%  compress/zlib.(*reader).Read
+     0.03s  0.13% 96.70%      3.85s 16.93%  image/png.(*encoder).writeChunk
+     0.02s 0.088% 96.79%      4.01s 17.63%  compress/flate.(*decompressor).Read
+     0.02s 0.088% 96.88%      4.06s 17.85%  compress/flate.(*huffmanBitWriter).write
+     0.02s 0.088% 96.97%      5.99s 26.34%  compress/zlib.(*Writer).Write
+     0.02s 0.088% 97.05%      3.65s 16.05%  hash/adler32.(*digest).Write
+     0.01s 0.044% 97.10%      2.06s  9.06%  bufio.(*Writer).Flush
+     0.01s 0.044% 97.14%      4.27s 18.78%  compress/flate.(*Writer).Write
+     0.01s 0.044% 97.19%      0.20s  0.88%  compress/flate.(*compressor).fillStore
+     0.01s 0.044% 97.23%      2.56s 11.26%  internal/poll.(*FD).Write
+     0.01s 0.044% 97.27%      6.03s 26.52%  io.ReadAtLeast
+     0.01s 0.044% 97.32%      2.58s 11.35%  os.(*File).Write
+     0.01s 0.044% 97.36%      2.57s 11.30%  os.(*File).write
+     0.01s 0.044% 97.41%      2.50s 10.99%  syscall.Write
+         0     0% 97.41%      0.20s  0.88%  bufio.(*Reader).fill
+         0     0% 97.41%      4.06s 17.85%  compress/flate.(*compressor).store
+         0     0% 97.41%      4.26s 18.73%  compress/flate.(*compressor).write
+         0     0% 97.41%      4.06s 17.85%  compress/flate.(*compressor).writeStoredBlock
+         0     0% 97.41%      0.17s  0.75%  compress/flate.(*decompressor).nextBlock
+         0     0% 97.41%      4.04s 17.77%  compress/flate.(*dictWriter).Write
+         0     0% 97.41%      4.05s 17.81%  compress/flate.(*huffmanBitWriter).writeBytes
+         0     0% 97.41%      1.25s  5.50%  hash/crc32.(*digest).Write
+         0     0% 97.41%      1.25s  5.50%  hash/crc32.archUpdateIEEE
+         0     0% 97.41%      0.61s  2.68%  image.NewNRGBA (inline)
+         0     0% 97.41%      6.55s 28.80%  image/png.(*Encoder).Encode
+         0     0% 97.41%      0.20s  0.88%  image/png.(*decoder).Read
+         0     0% 97.41%     14.28s 62.80%  image/png.(*decoder).decode
+         0     0% 97.41%     14.28s 62.80%  image/png.(*decoder).parseChunk
+         0     0% 97.41%     14.28s 62.80%  image/png.(*decoder).parseIDAT
+         0     0% 97.41%      3.85s 16.93%  image/png.(*encoder).Write
+         0     0% 97.41%      6.53s 28.72%  image/png.(*encoder).writeIDATs
+         0     0% 97.41%     14.28s 62.80%  image/png.Decode
+         0     0% 97.41%      0.17s  0.75%  internal/poll.(*FD).Read
+         0     0% 97.41%      6.03s 26.52%  io.ReadFull
+         0     0% 97.41%     22.59s 99.34%  main.EncodeNoCompression
+         0     0% 97.41%     22.59s 99.34%  main.Processor.ProcessAll
+         0     0% 97.41%     22.59s 99.34%  main.main
+         0     0% 97.41%      0.17s  0.75%  os.(*File).Read
+         0     0% 97.41%      0.17s  0.75%  os.(*File).read
+         0     0% 97.41%      0.65s  2.86%  runtime.(*mheap).alloc
+         0     0% 97.41%      0.63s  2.77%  runtime.largeAlloc
+         0     0% 97.41%     22.59s 99.34%  runtime.main
+         0     0% 97.41%      0.64s  2.81%  runtime.makeslice
+         0     0% 97.41%      0.69s  3.03%  runtime.mallocgc
+         0     0% 97.41%      0.63s  2.77%  runtime.mallocgc.func1
+         0     0% 97.41%      0.72s  3.17%  runtime.systemstack
+         0     0% 97.41%      0.16s   0.7%  syscall.Read
+         0     0% 97.41%      0.16s   0.7%  syscall.read
+         0     0% 97.41%      2.49s 10.95%  syscall.write

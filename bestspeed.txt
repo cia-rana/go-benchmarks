@@ -1,0 +1,65 @@
+File: profile
+Type: cpu
+Time: Feb 28, 2019 at 4:56am (JST)
+Duration: 1.21mins, Total samples = 66.07s (90.69%)
+Showing nodes accounting for 63.40s, 95.96% of 66.07s total
+Dropped 136 nodes (cum <= 0.33s)
+      flat  flat%   sum%        cum   cum%
+    25.85s 39.13% 39.13%     39.38s 59.60%  image/png.filter
+     6.39s  9.67% 48.80%      6.39s  9.67%  image/png.abs (inline)
+     5.06s  7.66% 56.46%      9.73s 14.73%  image/png.paeth
+     3.80s  5.75% 62.21%      3.80s  5.75%  image/png.abs8 (inline)
+     3.55s  5.37% 67.58%      3.55s  5.37%  hash/adler32.update
+     2.75s  4.16% 71.74%      4.47s  6.77%  image/png.filterPaeth
+     2.53s  3.83% 75.57%      2.53s  3.83%  compress/flate.(*deflateFast).matchLen
+     1.95s  2.95% 78.52%      1.95s  2.95%  runtime.memmove
+     1.84s  2.78% 81.31%      1.84s  2.78%  main.ProcessSlice
+     1.64s  2.48% 83.79%     12.30s 18.62%  image/png.(*decoder).readImagePass
+     1.39s  2.10% 85.89%      1.72s  2.60%  compress/flate.(*huffmanEncoder).bitCounts
+     0.99s  1.50% 87.39%      1.34s  2.03%  compress/flate.(*decompressor).huffSym
+     0.73s  1.10% 88.50%      3.43s  5.19%  compress/flate.(*decompressor).huffmanBlock
+     0.66s     1% 89.50%      3.59s  5.43%  compress/flate.(*deflateFast).encode
+     0.54s  0.82% 90.31%      1.28s  1.94%  sort.doPivot
+     0.51s  0.77% 91.09%      1.51s  2.29%  compress/flate.(*huffmanBitWriter).writeTokens
+     0.49s  0.74% 91.83%      1.08s  1.63%  compress/flate.(*dictDecoder).tryWriteCopy (inline)
+     0.49s  0.74% 92.57%      0.66s     1%  compress/flate.(*huffmanBitWriter).writeCode
+     0.49s  0.74% 93.31%      0.49s  0.74%  runtime.memclrNoHeapPointers
+     0.32s  0.48% 93.79%      0.41s  0.62%  bufio.(*Reader).ReadByte
+     0.25s  0.38% 94.17%      0.55s  0.83%  compress/flate.(*byFreq).Less
+     0.24s  0.36% 94.54%      0.35s  0.53%  compress/flate.(*byLiteral).Less
+     0.21s  0.32% 94.85%      0.66s     1%  sort.insertionSort
+     0.20s   0.3% 95.16%      4.24s  6.42%  compress/flate.(*huffmanBitWriter).indexTokens
+     0.12s  0.18% 95.34%     51.68s 78.22%  image/png.(*encoder).writeImage
+     0.11s  0.17% 95.50%      2.14s  3.24%  sort.quickSort
+     0.08s  0.12% 95.63%      0.98s  1.48%  compress/flate.(*huffmanEncoder).assignEncodingAndSize
+     0.04s 0.061% 95.69%     11.88s 17.98%  compress/zlib.(*Writer).Write
+     0.03s 0.045% 95.73%      9.99s 15.12%  compress/flate.(*Writer).Write
+     0.02s  0.03% 95.76%      1.35s  2.04%  compress/flate.(*byFreq).sort
+     0.02s  0.03% 95.79%      9.80s 14.83%  compress/flate.(*compressor).encSpeed
+     0.02s  0.03% 95.82%      9.96s 15.07%  compress/flate.(*compressor).write
+     0.02s  0.03% 95.85%      3.79s  5.74%  compress/flate.(*decompressor).Read
+     0.02s  0.03% 95.88%      5.54s  8.39%  io.ReadAtLeast
+     0.01s 0.015% 95.90%      0.85s  1.29%  compress/flate.(*byLiteral).sort
+     0.01s 0.015% 95.91%      6.19s  9.37%  compress/flate.(*huffmanBitWriter).writeBlockDynamic
+     0.01s 0.015% 95.93%      4.06s  6.14%  compress/flate.(*huffmanEncoder).generate
+     0.01s 0.015% 95.94%      3.56s  5.39%  hash/adler32.(*digest).Write
+     0.01s 0.015% 95.96%      5.54s  8.39%  io.ReadFull
+         0     0% 95.96%      5.52s  8.35%  compress/zlib.(*reader).Read
+         0     0% 95.96%      0.47s  0.71%  image.NewNRGBA (inline)
+         0     0% 95.96%     51.73s 78.30%  image/png.(*Encoder).Encode
+         0     0% 95.96%     12.31s 18.63%  image/png.(*decoder).decode
+         0     0% 95.96%     12.31s 18.63%  image/png.(*decoder).parseChunk
+         0     0% 95.96%     12.31s 18.63%  image/png.(*decoder).parseIDAT
+         0     0% 95.96%     51.68s 78.22%  image/png.(*encoder).writeIDATs
+         0     0% 95.96%     12.31s 18.63%  image/png.Decode
+         0     0% 95.96%     65.89s 99.73%  main.EncodeBestSpeed
+         0     0% 95.96%     65.89s 99.73%  main.Processor.ProcessAll
+         0     0% 95.96%     65.89s 99.73%  main.main
+         0     0% 95.96%      0.49s  0.74%  runtime.(*mheap).alloc
+         0     0% 95.96%      0.47s  0.71%  runtime.largeAlloc
+         0     0% 95.96%     65.89s 99.73%  runtime.main
+         0     0% 95.96%      0.52s  0.79%  runtime.makeslice
+         0     0% 95.96%      0.54s  0.82%  runtime.mallocgc
+         0     0% 95.96%      0.47s  0.71%  runtime.mallocgc.func1
+         0     0% 95.96%      0.55s  0.83%  runtime.systemstack
+         0     0% 95.96%      2.17s  3.28%  sort.Sort
