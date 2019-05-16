@@ -1,12 +1,52 @@
 標準パッケージのみで　　　　　　大量のPNG画像を　　　　　　　　いかに高速に処理するか
-@cia_rana
+Go Conference 2019 Spring
 18 May 2019
 
+[[https://twitter.com/cia_rana][CIARANA]]
 
 * 自己紹介
 
 .image face.jpg
 
-*Koya* *IWAMURA*/*Twitter:* *cia_rana*/*GitHub:* *cia-rana*
+*CIARANA*/*Twitter:* *cia_rana*/*GitHub:* *cia-rana*
 2019年4月 株式会社サイバーエージェント 新卒入社
 [[https://adtech.cyberagent.io/][アドテクスタジオ]]でクリエイタ支援ツール作ってます
+
+* 背景
+
+* 背景
+- 動画をフレームごとに処理する必要があった
+- 動画→連番PNGに変換してGoで処理した
+- めちゃくちゃ処理に時間がかかった
+
+* どうやって処理を早くするか？
+- マシンスペックを上げる
+- cgo 経由でCのライブラリを呼ぶ
+- Goのコードを見直す
+
+* どうやって処理を早くするか？
+- マシンスペックを上げる
+- cgo 経由でCのライブラリを呼ぶ
+- Goのコードを見直す 👈 このプランを採用
+
+* 手あたり次第コードに手を加えても時間のムダ😩
+
+* 推測するな、計測せよ
+
+* Rob Pike, "Notes on Programming in C", 1989
+> Rule 1. You can't tell where a program is going to spend its time. Bottlenecks occur in surprising places, so don't try to second guess and put in a speed hack until you've proven that's where the bottleneck is.
+> Rule 2. Measure. Don't tune for speed until you've measured, and even then don't unless one part of the code _overwhelms_ the rest.
+
+> ルール1: プログラムがどこで時間を消費することになるか知ることはできない。ボトルネックは驚くべき箇所で起こるものである。したがって、*どこがボトルネックなのかをはっきりさせるまでは、推測を行ったり、スピードハックをしてはならない*。
+> ルール2: *計測すべし*。計測するまでは速度のための調整をしてはならない。コードの一部が残りを圧倒しないのであれば、なおさらである。
+
+* どこがボトルネックか？
+
+* pprof があるじゃない！
+
+* pprof
+● Go 公式のプロファイラ
+
+- runtime/pprof: 関数ごとの実行時間、メモリ情報、goroutineの情報を取得できる
+- net/http/pprof: ビジュアライズして見たい場合はこっちを使う
+- github.com/pkg/profile: pprof の簡易版
