@@ -123,7 +123,7 @@ func GetPathAll() []string {
 }
 
 func main() {
-	defer profile.Start(profile.ProfilePath(".")).Stop()
+	defer profile.Start(profile.MemProfile, profile.ProfilePath(".")).Stop()
 
 	if err := os.Mkdir(dstDir, 0766); err != nil {
 		fmt.Fprintln(os.Stderr, err)
