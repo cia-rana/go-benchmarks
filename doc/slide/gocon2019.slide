@@ -40,7 +40,7 @@ Go Conference 2019 Spring
 > ルール1: プログラムがどこで時間を消費することになるか知ることはできない。ボトルネックは驚くべき箇所で起こるものである。したがって、*どこがボトルネックなのかをはっきりさせるまでは、推測を行ったり、スピードハックをしてはならない*。
 > ルール2: *計測すべし*。計測するまでは速度のための調整をしてはならない。コードの一部が残りを圧倒しないのであれば、なおさらである。
 
-* どこがボトルネックか？
+* どうやってボトルネックを見つけるか？
 
 * pprof があるじゃない！
 
@@ -50,3 +50,48 @@ Go Conference 2019 Spring
 - runtime/pprof: 関数ごとの実行時間、メモリ情報、goroutineの情報を取得できる
 - net/http/pprof: ビジュアライズして見たい場合はこっちを使う
 - github.com/pkg/profile: pprof の簡易版
+
+* 使用画像
+● ここの画像を使わせていただきました
+👉 https://github.com/ashleymcnamara/gophers 
+● 96枚のPNG画像で全体のサイズは約68MB
+.image gophers.png 294 400
+“Gopher Artwork” by Ashley McNamara is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+
+* 実行環境
+● OS: Ubuntu 16.04 LTS
+● Go: go1.11.2 linux/amd64
+● Memory: 2GB
+● CPU: Intel Core i5-3340M CPU @ 2.70GHz（使用可能なコア数を1に制限）
+
+* プログラム
+
+.code first.go
+
+* 結果
+
+ Duration: 2.85mins, Total samples = 157.11s (91.76%)
+ Showing nodes accounting for 152.17s, 96.86% of 157.11s total
+ Dropped 191 nodes (cum <= 0.79s)
+      flat  flat%   sum%        cum   cum%
+    23.09s 14.70% 14.70%     35.19s 22.40%  image/png.filter
+       16s 10.18% 24.88%        28s 17.82%  runtime.mallocgc
+    12.89s  8.20% 33.09%     31.27s 19.90%  compress/flate.(*compressor).deflate
+     9.85s  6.27% 39.35%      9.85s  6.27%  compress/flate.matchLen
+     9.33s  5.94% 45.29%      9.33s  5.94%  runtime.memmove
+     8.29s  5.28% 50.57%     43.39s 27.62%  runtime.convT2Inoptr
+     5.59s  3.56% 54.13%      5.59s  3.56%  image/png.abs (inline)
+     5.23s  3.33% 57.46%     34.02s 21.65%  image.(*NRGBA).Set
+     5.04s  3.21% 60.66%     14.89s  9.48%  compress/flate.(*compressor).findMatch
+     4.99s  3.18% 63.84%     76.50s 48.69%  main.ProcessImage
+     4.53s  2.88% 66.72%      8.50s  5.41%  image/png.paeth
+     4.38s  2.79% 69.51%      5.71s  3.63%  image.(*NRGBA).NRGBAAt
+     3.85s  2.45% 71.96%     24.39s 15.52%  image/color.nrgbaModel
+     3.60s  2.29% 74.25%      3.60s  2.29%  image/png.abs8 (inline)
+     3.10s  1.97% 76.23%      3.10s  1.97%  hash/adler32.update
+     3.07s  1.95% 78.18%     23.67s 15.07%  image.(*NRGBA).At
+     2.97s  1.89% 80.07%      2.97s  1.89%  image/color.RGBA.RGBA
+     2.89s  1.84% 81.91%      5.86s  3.73%  image/color.(*RGBA).RGBA
+     2.77s  1.76% 83.67%      4.39s  2.79%  image/png.filterPaeth
+     2.76s  1.76% 85.43%     27.15s 17.28%  image/color.(*modelFunc).Convert
+
