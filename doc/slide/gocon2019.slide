@@ -71,7 +71,7 @@ Go Conference 2019 Spring
 
 * ソースコード1: たたき台
 
-ネガポジ反転するシンプルなコード
+取得したパスにある画像を順にネガポジ反転して保存するシンプルなコード
 
 .code first.go
 
@@ -131,7 +131,7 @@ Go Conference 2019 Spring
 
 * image/png.filter
 
-画像の各行で以下の5種類の内どのフィルタを使うべきか選択する
+画像の各行で以下の5種類のうちどのフィルタを使うべきか選択する
 
 .image gocon2019_func_filter.png
 
@@ -187,11 +187,88 @@ Go Conference 2019 Spring
 
 .image gocon2019_select_filter.png
 
-* ソースコード2: 
+* フィルタの選択だけで全体の実行時間の約1/7を占める！
+
+  flat  flat%   sum%        cum   cum%
+  23.09s 14.70% 14.70%     35.19s 22.40%  image/png.filter 👈
+
+* しかし、image/png.filter は API として使う場合は変更できない😭
+
+  flat  flat%   sum%        cum   cum%
+  23.09s 14.70% 14.70%     35.19s 22.40%  image/png.filter 👈
+
+* ソースコード1の実行時間
+
+ Duration: 2.85mins, Total samples = 157.11s (91.76%)
+ Showing nodes accounting for 152.17s, 96.86% of 157.11s total
+ Dropped 191 nodes (cum <= 0.79s)
+      flat  flat%   sum%        cum   cum%
+    23.09s 14.70% 14.70%     35.19s 22.40%  image/png.filter
+       16s 10.18% 24.88%        28s 17.82%  runtime.mallocgc
+    12.89s  8.20% 33.09%     31.27s 19.90%  compress/flate.(*compressor).deflate
+     9.85s  6.27% 39.35%      9.85s  6.27%  compress/flate.matchLen
+     9.33s  5.94% 45.29%      9.33s  5.94%  runtime.memmove
+     8.29s  5.28% 50.57%     43.39s 27.62%  runtime.convT2Inoptr
+     5.59s  3.56% 54.13%      5.59s  3.56%  image/png.abs (inline)
+     5.23s  3.33% 57.46%     34.02s 21.65%  image.(*NRGBA).Set
+     5.04s  3.21% 60.66%     14.89s  9.48%  compress/flate.(*compressor).findMatch
+     4.99s  3.18% 63.84%     76.50s 48.69%  main.ProcessImage
+     4.53s  2.88% 66.72%      8.50s  5.41%  image/png.paeth
+     4.38s  2.79% 69.51%      5.71s  3.63%  image.(*NRGBA).NRGBAAt
+     3.85s  2.45% 71.96%     24.39s 15.52%  image/color.nrgbaModel
+     3.60s  2.29% 74.25%      3.60s  2.29%  image/png.abs8 (inline)
+     3.10s  1.97% 76.23%      3.10s  1.97%  hash/adler32.update
+     3.07s  1.95% 78.18%     23.67s 15.07%  image.(*NRGBA).At
+     2.97s  1.89% 80.07%      2.97s  1.89%  image/color.RGBA.RGBA
+     2.89s  1.84% 81.91%      5.86s  3.73%  image/color.(*RGBA).RGBA
+     2.77s  1.76% 83.67%      4.39s  2.79%  image/png.filterPaeth
+     2.76s  1.76% 85.43%     27.15s 17.28%  image/color.(*modelFunc).Convert
+
+* ソースコード1の実行時間
+
+ Duration: 2.85mins, Total samples = 157.11s (91.76%)
+ Showing nodes accounting for 152.17s, 96.86% of 157.11s total
+ Dropped 191 nodes (cum <= 0.79s)
+      flat  flat%   sum%        cum   cum%
+    23.09s 14.70% 14.70%     35.19s 22.40%  image/png.filter
+       16s 10.18% 24.88%        28s 17.82%  runtime.mallocgc 👈
+    12.89s  8.20% 33.09%     31.27s 19.90%  compress/flate.(*compressor).deflate
+     9.85s  6.27% 39.35%      9.85s  6.27%  compress/flate.matchLen
+     9.33s  5.94% 45.29%      9.33s  5.94%  runtime.memmove 👈
+     8.29s  5.28% 50.57%     43.39s 27.62%  runtime.convT2Inoptr
+     5.59s  3.56% 54.13%      5.59s  3.56%  image/png.abs (inline)
+     5.23s  3.33% 57.46%     34.02s 21.65%  image.(*NRGBA).Set
+     5.04s  3.21% 60.66%     14.89s  9.48%  compress/flate.(*compressor).findMatch
+     4.99s  3.18% 63.84%     76.50s 48.69%  main.ProcessImage
+     4.53s  2.88% 66.72%      8.50s  5.41%  image/png.paeth
+     4.38s  2.79% 69.51%      5.71s  3.63%  image.(*NRGBA).NRGBAAt
+     3.85s  2.45% 71.96%     24.39s 15.52%  image/color.nrgbaModel
+     3.60s  2.29% 74.25%      3.60s  2.29%  image/png.abs8 (inline)
+     3.10s  1.97% 76.23%      3.10s  1.97%  hash/adler32.update
+     3.07s  1.95% 78.18%     23.67s 15.07%  image.(*NRGBA).At
+     2.97s  1.89% 80.07%      2.97s  1.89%  image/color.RGBA.RGBA
+     2.89s  1.84% 81.91%      5.86s  3.73%  image/color.(*RGBA).RGBA
+     2.77s  1.76% 83.67%      4.39s  2.79%  image/png.filterPaeth
+     2.76s  1.76% 85.43%     27.15s 17.28%  image/color.(*modelFunc).Convert
+
+* runtime.mallocgc, runtime.memmove
+メモリを管理する関数群がボトルネックになっている🤔
+
+* ソースコード1: たたき台
+
+image.Image は内部の Pix にスライスとして画素値を持っている
+👉 Pix に直接アクセスすればいいじゃない！
+
+.code first.go
+
+* ソースコード2: スライスへ直接アクセス
 
 .code second.go
 
-* ソースコード2:
+* ソースコード2の実行時間
+
+- メモリ管理系関数がボトルネックではなくなった
+- 実行時間: 171sec → 87sec（約2倍の高速化）
 
  Duration: 1.45mins, Total samples = 79.99s (91.86%)
  Showing nodes accounting for 78.52s, 98.16% of 79.99s total
@@ -211,6 +288,25 @@ Go Conference 2019 Spring
      1.43s  1.79% 92.09%     10.60s 13.25%  image/png.(*decoder).readImagePass
      1.42s  1.78% 93.86%      1.42s  1.78%  runtime.memmove
 
+* ソースコード2の実行時間
+
+ Duration: 1.45mins, Total samples = 79.99s (91.86%)
+ Showing nodes accounting for 78.52s, 98.16% of 79.99s total
+ Dropped 120 nodes (cum <= 0.40s)
+      flat  flat%   sum%        cum   cum%
+    22.43s 28.04% 28.04%     34.80s 43.51%  image/png.filter
+    12.10s 15.13% 43.17%     30.80s 38.50%  compress/flate.(*compressor).deflate 👈
+    10.79s 13.49% 56.66%     10.79s 13.49%  compress/flate.matchLen 👈
+     5.98s  7.48% 64.13%      5.98s  7.48%  image/png.abs (inline)
+     4.73s  5.91% 70.05%     15.52s 19.40%  compress/flate.(*compressor).findMatch 👈
+     4.33s  5.41% 75.46%      8.63s 10.79%  image/png.paeth
+     3.74s  4.68% 80.14%      3.74s  4.68%  image/png.abs8 (inline)
+     2.94s  3.68% 83.81%      2.94s  3.68%  hash/adler32.update
+     2.20s  2.75% 86.56%      3.88s  4.85%  image/png.filterPaeth
+     1.53s  1.91% 88.47%      1.53s  1.91%  main.ProcessSlice
+     1.46s  1.83% 90.30%      1.46s  1.83%  compress/flate.hash4 (inline) 👈
+     1.43s  1.79% 92.09%     10.60s 13.25%  image/png.(*decoder).readImagePass
+     1.42s  1.78% 93.86%      1.42s  1.78%  runtime.memmove
 * ソースコード3: 
 
 .code third.go
