@@ -13,8 +13,6 @@ Go Conference 2019 Spring
 [[https://adtech.cyberagent.io/][アドテクスタジオ]]でクリエイタ支援ツール作ってます
 
 * 背景
-
-* 背景
 - 動画をフレームごとに処理する必要があった
 - 動画→連番PNGに変換してGoで処理した
 - めちゃくちゃ処理に時間がかかった
@@ -307,11 +305,44 @@ image.Image は内部の Pix にスライスとして画素値を持っている
      1.46s  1.83% 90.30%      1.46s  1.83%  compress/flate.hash4 (inline) 👈
      1.43s  1.79% 92.09%     10.60s 13.25%  image/png.(*decoder).readImagePass
      1.42s  1.78% 93.86%      1.42s  1.78%  runtime.memmove
-* ソースコード3: 
+
+* ソースコード2の実行時間
+
+- compress/flate をどうにかすれば速くなりそう？🤔
+- compress/flate は ZIP などに使われている可逆圧縮
+
+    flat  flat%   sum%        cum   cum%
+    22.43s 28.04% 28.04%     34.80s 43.51%  image/png.filter
+    12.10s 15.13% 43.17%     30.80s 38.50%  compress/flate.(*compressor).deflate 👈
+    10.79s 13.49% 56.66%     10.79s 13.49%  compress/flate.matchLen 👈
+     5.98s  7.48% 64.13%      5.98s  7.48%  image/png.abs (inline)
+     4.73s  5.91% 70.05%     15.52s 19.40%  compress/flate.(*compressor).findMatch 👈
+     4.33s  5.41% 75.46%      8.63s 10.79%  image/png.paeth
+     3.74s  4.68% 80.14%      3.74s  4.68%  image/png.abs8 (inline)
+     2.94s  3.68% 83.81%      2.94s  3.68%  hash/adler32.update
+     2.20s  2.75% 86.56%      3.88s  4.85%  image/png.filterPaeth
+     1.53s  1.91% 88.47%      1.53s  1.91%  main.ProcessSlice
+     1.46s  1.83% 90.30%      1.46s  1.83%  compress/flate.hash4 (inline) 👈
+     1.43s  1.79% 92.09%     10.60s 13.25%  image/png.(*decoder).readImagePass
+     1.42s  1.78% 93.86%      1.42s  1.78%  runtime.memmove
+
+* 圧縮レベルを調節できる
+
+● image/png.CompressionLevel
+
+- DefaultCompression
+- NoCompression
+- BestSpeed
+- BestCompression
+
+* ソースコード3: めっちゃ速い BestSpeed
 
 .code third.go
 
 * ソースコード3:
+
+- より高速な flate(deflateFast) を使うようになった！
+- 87sec → 72.6sec（約1.2倍の高速化）
 
  Duration: 1.21mins, Total samples = 66.07s (90.69%)
  Showing nodes accounting for 63.40s, 95.96% of 66.07s total
@@ -323,14 +354,31 @@ image.Image は内部の Pix にスライスとして画素値を持っている
      3.80s  5.75% 62.21%      3.80s  5.75%  image/png.abs8 (inline)
      3.55s  5.37% 67.58%      3.55s  5.37%  hash/adler32.update
      2.75s  4.16% 71.74%      4.47s  6.77%  image/png.filterPaeth
-     2.53s  3.83% 75.57%      2.53s  3.83%  compress/flate.(*deflateFast).matchLen
+     2.53s  3.83% 75.57%      2.53s  3.83%  compress/flate.(*deflateFast).matchLen 👈
      1.95s  2.95% 78.52%      1.95s  2.95%  runtime.memmove
      1.84s  2.78% 81.31%      1.84s  2.78%  main.ProcessSlice
      1.64s  2.48% 83.79%     12.30s 18.62%  image/png.(*decoder).readImagePass
      1.39s  2.10% 85.89%      1.72s  2.60%  compress/flate.(*huffmanEncoder).bitCounts
      0.99s  1.50% 87.39%      1.34s  2.03%  compress/flate.(*decompressor).huffSym
      0.73s  1.10% 88.50%      3.43s  5.19%  compress/flate.(*decompressor).huffmanBlock
-     0.66s     1% 89.50%      3.59s  5.43%  compress/flate.(*deflateFast).encode
+     0.66s     1% 89.50%      3.59s  5.43%  compress/flate.(*deflateFast).encode 👈
+
+* さらなる高速化
+- （各画像が独立している場合は）goroutine で並行処理にする
+- Go のソースコードに手を加えて Let's contribute
+- #gocon_hall や #gocon でわいわいしましょう！
+
+* おまけ
+
+* おまけ
+- image/png.filter() の一番最後
+- best = sum がいらないのでは？🤔
+
+.code omake1.go
+
+* 初コントリビューション成功😄🎉
+
+.image omake2.png
 
 * まとめ
 ● image/png パッケージは適切に使おう
